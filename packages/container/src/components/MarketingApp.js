@@ -16,7 +16,7 @@ useEffect(()=>{
 })
 
 // This code showing us a div
-return <div ref={ref}></div>  
+return <div ref={ref}></div>
 };
 
 //Output:
