@@ -1,8 +1,8 @@
 import React,{ useEffect, useRef } from 'react';
-import { mount } from 'marketing/MarketingApp';
+import { mount } from 'auth/AuthApp';
 import { useHistory } from 'react-router-dom';
 
-export default () =>{
+export default ({ onSignIn }) =>{
 
 // We are getting a reference to the HTML element here that is being displayed on screen    
 const ref = useRef(null);
@@ -18,9 +18,9 @@ useEffect(()=>{
     //passing a function called onNavigate()
 // onNavigate() will create a call back and then call the mount function and provide that as callback as onNavigate
      const { onParentNavigate } = mount(ref.current,{
-          // We need to tell to mount function what it's initial path should be
+        // We need to tell to mount function what it's initial path should be
         initialPath: history.location.pathname,
-         //pathname is field in location so instead of getting whole object with different fields we take only one. 
+        //pathname is field in location so instead of getting whole object with different fields we take only one. 
         onNavigate:({ pathname: nextPathname }) => {
 
             // What currently at we are in path get pathname
@@ -31,6 +31,8 @@ useEffect(()=>{
                 history.push(nextPathname);
             }
         },
+        // only going to call this call back whenever user actually signs into application
+        onSignIn,
     });
     // Anytime change into the browser history we will call parent navigator.
     history.listen(onParentNavigate); 

@@ -1,16 +1,15 @@
 import React from "react";
 import { Switch, Route, Router } from "react-router-dom";
 import { StylesProvider,createGenerateClassName } from "@material-ui/core/styles";
-
-import Landing from './components/Landing';
-import Pricing from './components/Pricing';
+import SignIn from "./components/Signin";
+import SignUp from "./components/Signup";
 
 // create generic prefix for class names in production.
 const generateClassName = createGenerateClassName({
-    productionPrefix:'ma',
+    productionPrefix:'au',
 });
 
-export default ({ history }) => {
+export default ({ history, onSignIn }) => {
     //console.log(history)
     return (
         <div>
@@ -19,8 +18,12 @@ export default ({ history }) => {
                {/* Router Creates a copy of history that doesn't make it's own history we need to give them */}
                 <Router history={history}>
                     <Switch>
-                        <Route exact path="/pricing" component={Pricing}/>
-                        <Route path="/" component={Landing}/>
+                        <Route path="/auth/signin" >
+                            <SignIn onSignIn={onSignIn}/>
+                        </Route>
+                        <Route path="/auth/signup" >
+                             <SignUp onSignIn={onSignIn}/>
+                        </Route>
                     </Switch>
                 </Router>
             </StylesProvider>

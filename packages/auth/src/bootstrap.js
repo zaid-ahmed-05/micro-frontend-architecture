@@ -7,7 +7,7 @@ import App from './App';
 
 // Mount Function is receiving a second argument called onNavigate it's a callback function
 // It seems whenever navigation occurs we call this onNavigate function
-const mount = (el, { onNavigate, defaultHistory, initialPath } ) =>{
+const mount = (el, { onSignIn, onNavigate, defaultHistory, initialPath } ) =>{
 
 
   // A copy of memoryHistory 
@@ -24,16 +24,17 @@ const mount = (el, { onNavigate, defaultHistory, initialPath } ) =>{
 
   }
 
-  ReactDOM.render( <App history={history} />, el);
+  ReactDOM.render( <App onSignIn={onSignIn} history={history} />, el);
 
   // communication from container down to marketing application. This mount function will return an object
   return {
     onParentNavigate({ pathname: nextPathname }) {
 
-     // console.log('Container just navigated');
+      //console.log('Container just navigated');
       
       // What currently at we are in path get pathname
       const { pathname } = history.location;
+      //console.log(nextPathname);
       //Verify our current path and next one is different ! otherwise don't occur navigation
       if(pathname !== nextPathname) {
         // Navigate this to the new path
@@ -47,7 +48,7 @@ const mount = (el, { onNavigate, defaultHistory, initialPath } ) =>{
 // call mount immediately
 
 if(process.env.NODE_ENV === 'development'){
-    const devRoot = document.querySelector('#_marketing-dev-root');
+    const devRoot = document.querySelector('#_auth-dev-root');
 
     if(devRoot){
         // We should make use of browser history instead of memory history that would allow us to have easier to 
